@@ -1,11 +1,11 @@
-# Contributing to TreasuryAccounts
+# Contributing to Treasury Accounts
 
 First off, thanks for taking the time to contribute!
 
 ## Did you find a bug
-*   Ensure the bug was not already reported by searching on GitHub under [Issues](https://github.com/arsengir/TreasuryAccounts/issues).
+*   Ensure the bug was not already reported by searching on GitHub under [Issues](https://github.com/arsengir/treasury_accounts/issues).
 
-*   If you're unable to find an open issue addressing the problem, open a [new one](https://github.com/arsengir/TreasuryAccounts/issues/new/choose). 
+*   If you're unable to find an open issue addressing the problem, open a [new one](https://github.com/arsengir/treasury_accounts/issues/new/choose). 
     Be sure to include a title and clear description, as much relevant information as possible, 
     and a code sample or an executable test case demonstrating the expected behavior that is not occurring.
     
@@ -18,7 +18,7 @@ First off, thanks for taking the time to contribute!
 
 ## Did you fix whitespace, format code, or make a purely cosmetic patch
 Changes that are cosmetic in nature and do not add anything substantial to the stability, 
-functionality, or testability of TreasuryAccounts - welcome.
+functionality, or testability of Treasury Accounts - welcome.
 ## Do you intend to add a new feature or change an existing one
 *   Suggest your change in the **Feature request** and wait for approval to avoid writing code, which won't be added.
 
@@ -26,4 +26,4 @@ functionality, or testability of TreasuryAccounts - welcome.
 
 Thanks! 
 
-TreasuryAccounts.
+Treasury Accounts.
