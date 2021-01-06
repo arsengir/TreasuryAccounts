@@ -1,5 +1,6 @@
 ## Overview
-Repository creates for fast running development process with configuration, which are the same from project to project.
+Сервис по получению и работе с казначейскими счетами, открытыми в Федеральном казначействе
+https://roskazna.gov.ru/dokumenty/sistema-kaznacheyskikh-platezhey/kaznacheyskie-scheta/
 
 ## Building
 ...
