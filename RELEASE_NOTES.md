@@ -1,2 +1,2 @@
 ## 1.0-SNAPSHOT
-*   Created template for new repositories.
+*   Загрузка казначейских счетов с сайта Федерального казначейства
