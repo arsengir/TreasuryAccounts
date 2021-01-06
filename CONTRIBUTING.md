@@ -18,7 +18,7 @@ First off, thanks for taking the time to contribute!
 
 ## Did you fix whitespace, format code, or make a purely cosmetic patch
 Changes that are cosmetic in nature and do not add anything substantial to the stability, 
-functionality, or testability of Repository Template - welcome.
+functionality, or testability of TreasuryAccounts - welcome.
 ## Do you intend to add a new feature or change an existing one
 *   Suggest your change in the **Feature request** and wait for approval to avoid writing code, which won't be added.
 
