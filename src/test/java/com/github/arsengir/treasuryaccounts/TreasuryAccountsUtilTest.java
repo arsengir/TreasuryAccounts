@@ -30,6 +30,7 @@ class TreasuryAccountsUtilTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(treasuryAccountsSet.size());
         assertFalse(treasuryAccountsSet.isEmpty());
     }
 

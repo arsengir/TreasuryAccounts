@@ -91,7 +91,6 @@ public class TreasuryAccountsUtil {
                 treasuryAccountsSet.add(new TreasuryAccount(ta, tsa, tbic, taOpenDate, taHolder, lsScheme));
             }
             reader.close();
-            System.out.println(treasuryAccountsSet.size());
         }
         return treasuryAccountsSet;
     }
