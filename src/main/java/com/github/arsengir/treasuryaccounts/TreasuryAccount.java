@@ -1,6 +1,8 @@
 package com.github.arsengir.treasuryaccounts;
 
-public class TreasuryAccounts {
+import java.nio.charset.StandardCharsets;
+
+public class TreasuryAccount {
     // Номер казначейского счета
     private final String TA;
     // Номер единого казначейского счета
@@ -16,12 +18,29 @@ public class TreasuryAccounts {
     //казначейства, LS2 - лицевые счета открыты в финансовом органе или органе управления внебюджетным фондом)
     private final String LSScheme;
 
-    public TreasuryAccounts(String ta, String tsa, String tbic, String taOpenDate, String taHolder, String lsScheme) {
+    public TreasuryAccount(String ta, String tsa, String tbic, String taOpenDate, String taHolder, String lsScheme) {
         TA = ta;
         TSA = tsa;
         TBIC = tbic;
         TAOpenDate = taOpenDate;
         TAHolder = taHolder;
         LSScheme = lsScheme;
+    }
+
+    @Override
+    public String toString() {
+        return "TreasuryAccount{" +
+                "TA='" + TA + '\'' +
+                ", TSA='" + TSA + '\'' +
+                ", TBIC='" + TBIC + '\'' +
+                ", TAOpenDate='" + TAOpenDate + '\'' +
+                ", TAHolder='" + TAHolder + '\'' +
+                ", LSScheme='" + LSScheme + '\'' +
+                '}';
+    }
+
+    public byte[] getBytesForSaveToFile() {
+        String line = TA + "," + TSA + "," + TBIC + "," + TAOpenDate + "," + TAHolder + "," + LSScheme + "\n";
+        return line.getBytes(StandardCharsets.UTF_8);
     }
 }
