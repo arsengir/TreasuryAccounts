@@ -1,6 +1,7 @@
 package com.github.arsengir.treasuryaccounts;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class TreasuryAccount {
     // Номер казначейского счета
@@ -42,5 +43,23 @@ public class TreasuryAccount {
     public byte[] getBytesForSaveToFile() {
         String line = TA + "," + TSA + "," + TBIC + "," + TAOpenDate + "," + TAHolder + "," + LSScheme + "\n";
         return line.getBytes(StandardCharsets.UTF_8);
+    }
+
+    public String getTA() {
+        return TA;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TreasuryAccount that = (TreasuryAccount) o;
+        return Objects.equals(TA, that.TA) && Objects.equals(TSA, that.TSA) && Objects.equals(TBIC, that.TBIC);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(TA, TSA, TBIC);
     }
 }

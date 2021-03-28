@@ -3,7 +3,9 @@ package com.github.arsengir.treasuryaccounts;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashSet;
+import java.util.TreeSet;
 
 public class TreasuryAccountsUtil {
 
@@ -61,7 +63,8 @@ public class TreasuryAccountsUtil {
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String line;
         line = reader.readLine();
-        if ("TA,TSA,TBIC,TAOpenDate,TAHolder,LSScheme".equals(line)) {
+        if (("\uFEFFTA,TSA,TBIC,TAOpenDate,TAHolder,LSScheme".equals(line))
+                || ("TA,TSA,TBIC,TAOpenDate,TAHolder,LSScheme".equals(line))){
             while ((line = reader.readLine()) != null) {
                 String[] split = line.split(",");
 
@@ -106,5 +109,70 @@ public class TreasuryAccountsUtil {
         }
         outputStream.close();
     }
+
+    /**
+     * Сохранение разницы между 2 списками в файл на диск
+     * @param fileNameAdd - имя файла счета которые добавлены
+     * @param fileNameDel - имя файла счета которые удалены
+     */
+//    public static void saveToFilesDifferenceBetween2Set(String fileNameAdd, String fileNameDel, String urlCompareSet) throws IOException {
+//        TreeSet<String> set1 = new TreeSet<>();
+//        TreeSet<String> set2 = new TreeSet<>();
+//
+//        //старый файл
+//        LinkedHashSet<TreasuryAccount> compareSet  = new LinkedHashSet<>();
+//        compareSet = getSetTreasuryAccountsFromLink(urlCompareSet);
+//        for (TreasuryAccount treasuryAccount : compareSet) {
+//            set1.add(treasuryAccount.getTA());
+//        }
+//        //новый файл
+//        for (TreasuryAccount treasuryAccount : treasuryAccountsSet) {
+//            set2.add(treasuryAccount.getTA());
+//        }
+//
+//        FileOutputStream outputStream;
+//
+//        outputStream = new FileOutputStream(fileNameDel);
+//        for (String s : set1) {
+//            if (!set2.contains(s)) {
+//                s += "\n";
+//                outputStream.write(s.getBytes(StandardCharsets.UTF_8));
+//            }
+//        }
+//
+//        outputStream = new FileOutputStream(fileNameAdd);
+//        for (String s : set2) {
+//            if (!set1.contains(s)) {
+//                s += "\n";
+//                outputStream.write(s.getBytes(StandardCharsets.UTF_8));
+//            }
+//        }
+//        outputStream.close();
+//    }
+
+    public static void saveToFilesDifferenceBetween2Set(String fileNameAdd, String fileNameDel, String urlCompareSet) throws IOException {
+
+        //старый файл
+        LinkedHashSet<TreasuryAccount> compareSet  = new LinkedHashSet<>();
+        compareSet = getSetTreasuryAccountsFromLink(urlCompareSet);
+
+        FileOutputStream outputStream;
+
+        outputStream = new FileOutputStream(fileNameDel);
+        for (TreasuryAccount account : treasuryAccountsSet) {
+            if (!compareSet.contains(account)){
+                outputStream.write(account.getBytesForSaveToFile());
+            }
+        }
+
+        outputStream = new FileOutputStream(fileNameAdd);
+        for (TreasuryAccount account : compareSet) {
+            if (!treasuryAccountsSet.contains(account)){
+                outputStream.write(account.getBytesForSaveToFile());
+            }
+        }
+        outputStream.close();
+    }
+
 
 }
