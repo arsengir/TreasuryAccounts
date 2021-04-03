@@ -1,25 +1,41 @@
 package com.github.arsengir.treasuryaccounts;
 
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvBindByPosition;
+import com.opencsv.bean.CsvDate;
+
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class TreasuryAccount {
     // Номер казначейского счета
-    private final String TA;
+    @CsvBindByName
+    private String TA;
     // Номер единого казначейского счета
-    private final String TSA;
+    @CsvBindByName
+    private String TSA;
     // Банковский идентификационный код территориального органа Федерального казначейства
-    // в платежной системе Банка России
-    private final String TBIC;
+    // в платежной системе Банка России2
+    @CsvBindByName
+    private String TBIC;
     //Дата открытия казначейского счета
-    private final String TAOpenDate;
+    @CsvDate(value = "dd.MM.yyyy")
+    @CsvBindByName
+    private LocalDate TAOpenDate;
     //Наименование владельца казначейского счета
-    private final String TAHolder;
+    @CsvBindByName
+    private String TAHolder;
     //Вариант открытия лицевого счета (LS1 - лицевые счета открыты в территориальном органе Федерального
     //казначейства, LS2 - лицевые счета открыты в финансовом органе или органе управления внебюджетным фондом)
-    private final String LSScheme;
+    @CsvBindByName
+    private String LSScheme;
 
-    public TreasuryAccount(String ta, String tsa, String tbic, String taOpenDate, String taHolder, String lsScheme) {
+    public TreasuryAccount() {
+        // Пустой конструктор
+    }
+
+    public TreasuryAccount(String ta, String tsa, String tbic, LocalDate taOpenDate, String taHolder, String lsScheme) {
         TA = ta;
         TSA = tsa;
         TBIC = tbic;
@@ -48,7 +64,6 @@ public class TreasuryAccount {
     public String getTA() {
         return TA;
     }
-
 
     @Override
     public boolean equals(Object o) {
