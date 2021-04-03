@@ -12,7 +12,6 @@ public class Main {
             "0. Выход \n";
 
     public static void main(String[] args) throws IOException {
-        System.out.println(MENU);
         Scanner scanner = new Scanner(System.in);
         whileExit:
         while (true) {
