@@ -118,7 +118,7 @@ public class TreasuryAccountsUtil {
         List<TreasuryAccount> listNew = TreasuryAccountsUtil.getSetTreasuryAccountsFromFile(fileNameNew);
 
         // счета которые добавлены или изменены в новом файле
-        Set<TreasuryAccount> setOld = listOld.stream().collect(Collectors.toSet());
+        Set<TreasuryAccount> setOld = new HashSet<>(listOld);
         List<TreasuryAccount> accountModify = listNew.stream()
                 .filter(account -> !setOld.contains(account))
                 .collect(Collectors.toList());
