@@ -1,5 +1,6 @@
 package com.github.arsengir;
 
+import com.github.arsengir.db.OraConnection;
 import com.github.arsengir.treasuryaccounts.TreasuryAccountsUtil;
 
 import java.io.IOException;
@@ -12,6 +13,8 @@ public class Main {
             "0. Выход \n";
 
     public static void main(String[] args) throws IOException {
+        OraConnection.setCon("main");
+
         Scanner scanner = new Scanner(System.in);
         whileExit:
         while (true) {
