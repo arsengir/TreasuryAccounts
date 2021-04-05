@@ -1,7 +1,5 @@
 package com.github.arsengir.db;
 
-import com.github.arsengir.Main;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;

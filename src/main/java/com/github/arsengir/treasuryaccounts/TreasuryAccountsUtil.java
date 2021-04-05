@@ -1,6 +1,7 @@
 package com.github.arsengir.treasuryaccounts;
 
 
+import com.github.arsengir.db.EditTableTreasuryAccounts;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.apache.commons.io.input.BOMInputStream;
 
@@ -118,32 +119,32 @@ public class TreasuryAccountsUtil {
         List<TreasuryAccount> listNew = TreasuryAccountsUtil.getSetTreasuryAccountsFromFile(fileNameNew);
 
         // счета которые добавлены или изменены в новом файле
-        Set<TreasuryAccount> setOld = new HashSet<>(listOld);
-        List<TreasuryAccount> accountModify = listNew.stream()
-                .filter(account -> !setOld.contains(account))
-                .collect(Collectors.toList());
-
-        System.out.println(accountModify.size());
-        accountModify.stream()
-                .limit(10)
-                .forEach(System.out::println);
-
+        List<TreasuryAccount> accountModify = getListModifyAccounts(listOld, listNew);
         formingCsvFileFromList(fileNameAdd, accountModify);
 
         // счета которые удалены в новом файле
-        Set<String> setNew = listNew.stream()
-                .map(TreasuryAccount::getTA)
-                .collect(Collectors.toSet());
-        List<TreasuryAccount> accountDel = listOld.stream()
-                .filter(account -> !setNew.contains(account.getTA()))
-                .collect(Collectors.toList());
-
-        System.out.println(accountDel.size());
-        accountDel.stream()
-                .limit(10)
-                .forEach(System.out::println);
-
+        List<TreasuryAccount> accountDel = getListDelAccounts(listOld, listNew);
         formingCsvFileFromList(fileNameDel, accountDel);
+    }
+
+    /**
+     * Сохранение разницы между 2 списками в базу
+     *
+     * @param fileNameOld - имя старого файла
+     * @param fileNameNew - имя нового файла
+     * @throws IOException ошибка
+     */
+    public static void saveToDBDifferenceBetween2List(String fileNameOld, String fileNameNew) throws IOException {
+        List<TreasuryAccount> listOld = TreasuryAccountsUtil.getSetTreasuryAccountsFromFile(fileNameOld);
+        List<TreasuryAccount> listNew = TreasuryAccountsUtil.getSetTreasuryAccountsFromFile(fileNameNew);
+
+        // счета которые добавлены или изменены в новом файле
+        List<TreasuryAccount> accountModify = getListModifyAccounts(listOld, listNew);
+        EditTableTreasuryAccounts.InsertDataFromList(accountModify, "Add");
+
+        // счета которые удалены в новом файле
+        List<TreasuryAccount> accountDel = getListDelAccounts(listOld, listNew);
+        EditTableTreasuryAccounts.InsertDataFromList(accountDel, "Del");
     }
 
     private static void formingCsvFileFromList(String fileName, List<TreasuryAccount> accounts) throws IOException {
@@ -153,6 +154,26 @@ public class TreasuryAccountsUtil {
                 outputStream.flush();
             }
         }
+    }
+
+    private static List<TreasuryAccount> getListModifyAccounts(List<TreasuryAccount> listOld, List<TreasuryAccount> listNew){
+        // счета которые добавлены или изменены в новом файле
+        Set<TreasuryAccount> setOld = new HashSet<>(listOld);
+
+        return listNew.stream()
+                .filter(account -> !setOld.contains(account))
+                .collect(Collectors.toList());
+    }
+
+    private static List<TreasuryAccount> getListDelAccounts(List<TreasuryAccount> listOld, List<TreasuryAccount> listNew){
+        // счета которые удалены в новом файле
+        Set<String> setNew = listNew.stream()
+                .map(TreasuryAccount::getTA)
+                .collect(Collectors.toSet());
+
+        return listOld.stream()
+                .filter(account -> !setNew.contains(account.getTA()))
+                .collect(Collectors.toList());
     }
 
 }

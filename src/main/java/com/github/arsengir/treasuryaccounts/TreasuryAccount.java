@@ -1,7 +1,6 @@
 package com.github.arsengir.treasuryaccounts;
 
 import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvDate;
 
 import java.nio.charset.StandardCharsets;
@@ -63,6 +62,26 @@ public class TreasuryAccount {
 
     public String getTA() {
         return TA;
+    }
+
+    public String getTSA() {
+        return TSA;
+    }
+
+    public String getTBIC() {
+        return TBIC;
+    }
+
+    public LocalDate getTAOpenDate() {
+        return TAOpenDate;
+    }
+
+    public String getTAHolder() {
+        return TAHolder;
+    }
+
+    public String getLSScheme() {
+        return LSScheme;
     }
 
     @Override
